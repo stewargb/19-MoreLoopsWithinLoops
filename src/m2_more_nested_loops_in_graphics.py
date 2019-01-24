@@ -4,8 +4,8 @@ in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         and Grant Stewart.
+"""  # Done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -49,8 +49,41 @@ def draw_upside_down_wall(rectangle, n, window):
       :type window: rg.RoseWindow
     and n is nonnegative.
     """
+    topL = rectangle.get_upper_left_corner()
+    topLx = topL.x
+    topLy = topL.y
+    resettopy = topLy
+    resettopx = topLx
+    botR = rectangle.get_lower_right_corner()
+    botRx = botR.x
+    botRy = botR.y
+    resetboty = botRy
+    resetbotx = botRx
+    # rectangle.attach_to(window)
+    distancex = botRx - topLx
+    print('distancex', distancex)
+    distancey = botRy - topLy
+    print('distancey', distancey)
+
+    for k in range(n):
+        for j in range(k+1):
+            new = rg.Rectangle(rg.Point(topLx, topLy), rg.Point(botRx, botRy))
+            new.attach_to(window)
+            topLx = topLx + (distancex)
+            botRx = botRx + (distancex)
+            if j == (k):
+                topLy = resettopy - distancey * (k)
+                botRy = resetboty - distancey * (k)
+                topLx = resettopx - (distancex * (k + 1))/2
+                botRx = resetbotx - (distancex * (k + 1))/2
+
+        topLy = topLy - (distancey)
+        botRy = botRy - (distancey)
+    window.render()
+
+
     # -------------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # Done: 2. Implement and test this function.
     #     Some tests are already written for you (above).
     # -------------------------------------------------------------------------
 
